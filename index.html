@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f6f7fb">
+<title>Deadline Calendar</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#20243a;--muted:#858ba3;--line:#e9ebf3;--purple:#6558e8;--soft:#efedff;--red:#e45d72;--green:#279b79;--amber:#b77912}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1440px;margin:auto;padding:clamp(14px,3vw,36px)}.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:24px}.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:14px;background:var(--purple);color:white;display:grid;place-items:center;font-size:22px}.brand h1{font-size:clamp(20px,2.5vw,28px);margin:0;letter-spacing:-.7px}.brand p{margin:4px 0 0;color:var(--muted);font-size:13px}.actions{display:flex;gap:8px}.btn{border:1px solid var(--line);border-radius:12px;padding:11px 14px;background:white;color:var(--ink);font-weight:650}.primary{background:var(--purple);border-color:var(--purple);color:white}.layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}.panel{background:var(--card);border:1px solid #eceef5;border-radius:21px;box-shadow:0 12px 35px #25294a0b}.calendar{padding:clamp(12px,2vw,25px)}.cal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}.month-title{font-size:clamp(21px,2.4vw,28px);font-weight:760;letter-spacing:-.7px}.month-title small{display:block;color:var(--muted);font-size:12px;font-weight:500;letter-spacing:0;margin-top:4px}.controls{display:flex;gap:7px}.icon-btn{width:39px;height:39px;border:1px solid var(--line);border-radius:11px;background:white;font-size:20px}.weekdays,.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}.weekdays{margin-bottom:7px}.weekdays div{text-align:center;color:var(--muted);font-size:12px;font-weight:700;padding:8px 0}.day{min-width:0;min-height:clamp(74px,9.5vw,120px);border:1px solid var(--line);margin:-.5px 0 0 -.5px;padding:7px;background:#fff;overflow:hidden}.day.outside{background:#fafbfe;color:#b8bdcc}.day.today .num{background:var(--purple);color:white}.num{width:27px;height:27px;display:grid;place-items:center;border-radius:8px;font-size:12px;font-weight:750;margin-bottom:5px}.event{display:block;width:100%;text-align:left;border:0;border-radius:6px;padding:5px 6px;margin:3px 0;background:var(--soft);color:#574bd2;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.event.high{background:#fff0f1;color:#c9495e}.event.medium{background:#fff5df;color:#a36d08}.event.low{background:#e7f8f1;color:#188565}.more{font-size:10px;color:var(--muted);padding-left:4px}.legend{display:flex;flex-wrap:wrap;gap:13px;margin-top:16px;color:var(--muted);font-size:12px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}.sidebar{display:grid;gap:18px}.side{padding:20px}.side h2{font-size:16px;margin:0 0 15px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#f8f8fd;border-radius:13px;padding:14px}.stat strong{display:block;font-size:25px}.stat span{font-size:12px;color:var(--muted)}.item{display:flex;gap:11px;padding:12px 0;border-bottom:1px solid var(--line)}.item:last-child{border:0;padding-bottom:0}.date-chip{width:44px;min-width:44px;height:47px;border-radius:11px;background:var(--soft);color:var(--purple);display:grid;place-content:center;text-align:center}.date-chip b{font-size:17px}.date-chip small{font-size:10px;text-transform:uppercase}.item-text{min-width:0}.item-text strong{font-size:13px;display:block;overflow-wrap:anywhere}.item-text span{display:block;font-size:11px;color:var(--muted);margin-top:5px}.empty{font-size:13px;color:var(--muted);line-height:1.6}.backdrop{position:fixed;inset:0;background:#17182c80;display:none;align-items:center;justify-content:center;padding:15px;z-index:5}.backdrop.show{display:flex}.modal{background:white;border-radius:20px;padding:24px;width:min(100%,470px);max-height:90vh;overflow:auto}.modal h2{margin:0 0 18px}.field{display:grid;gap:7px;margin:13px 0}.field label{font-size:12px;font-weight:750;color:#555b72}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px;background:white;color:var(--ink)}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.modal-actions{display:flex;justify-content:space-between;gap:8px;margin-top:20px}.right{display:flex;gap:8px}.danger{color:var(--red)}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#252943;color:white;padding:12px 18px;border-radius:12px;font-size:13px;display:none;z-index:10}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{grid-template-columns:1fr 1fr}.day{min-height:clamp(70px,12vw,100px)}}
+@media(max-width:600px){.app{padding:12px}.topbar{align-items:flex-start;margin-bottom:16px}.logo{width:38px;height:38px}.brand{gap:9px}.brand p{font-size:11px}.today-btn{display:none}.btn{padding:10px 11px;font-size:12px}.layout{gap:13px}.calendar{padding:9px;border-radius:16px}.cal-head{margin-bottom:11px}.month-title{font-size:20px}.month-title small{font-size:10px}.icon-btn{width:33px;height:33px}.weekdays div{font-size:10px;padding:6px 0}.day{min-height:clamp(52px,13.5vw,76px);padding:3px 2px}.num{width:22px;height:22px;font-size:10px;margin-bottom:3px}.event{font-size:0;height:7px;width:7px;padding:0;display:inline-block;margin:2px 1px;border-radius:50%}.more{font-size:9px;padding:0}.legend{font-size:10px;gap:8px;margin-top:11px}.sidebar{grid-template-columns:1fr}.side{padding:16px}.row{grid-template-columns:1fr}.modal{padding:19px}.modal-actions{flex-wrap:wrap}.right{margin-left:auto}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+ <div class="brand"><div class="logo">✓</div><div><h1>Deadline Calendar</h1><p>Lên kế hoạch · Theo dõi · Hoàn thành</p></div></div>
+ <div class="actions"><button class="btn today-btn" id="todayBtn">Hôm nay</button><button class="btn primary" id="addBtn">＋ Thêm deadline</button></div>
+</header>
+<main class="layout">
+<section class="panel calendar">
+ <div class="cal-head"><div class="month-title" id="monthTitle">Tháng<small>Lịch trình của bạn</small></div><div class="controls"><button class="icon-btn" id="prevBtn" aria-label="Tháng trước">‹</button><button class="icon-btn" id="nextBtn" aria-label="Tháng sau">›</button></div></div>
+ <div class="weekdays"><div>T2</div><div>T3</div><div>T4</div><div>T5</div><div>T6</div><div>T7</div><div>CN</div></div>
+ <div class="grid" id="calendarGrid"></div>
+ <div class="legend"><span><i class="dot" style="background:#e45d72"></i>Ưu tiên cao</span><span><i class="dot" style="background:#e6ae38"></i>Ưu tiên vừa</span><span><i class="dot" style="background:#279b79"></i>Ưu tiên thấp</span><span><i class="dot" style="background:#6558e8"></i>Thông thường</span></div>
+</section>
+<aside class="sidebar">
+ <section class="panel side"><h2>Tổng quan</h2><div class="stats"><div class="stat"><strong id="totalCount">0</strong><span>Tổng deadline</span></div><div class="stat"><strong id="soonCount">0</strong><span>Trong 7 ngày</span></div><div class="stat"><strong id="doneCount">0</strong><span>Đã hoàn thành</span></div><div class="stat"><strong id="lateCount">0</strong><span>Quá hạn</span></div></div></section>
+ <section class="panel side"><h2>Deadline sắp tới</h2><div id="upcoming"></div></section>
+</aside>
+</main>
+</div>
+<div class="backdrop" id="backdrop"><form class="modal" id="deadlineForm">
+ <h2 id="modalTitle">Thêm deadline</h2><input type="hidden" id="editId">
+ <div class="field"><label for="title">Tên công việc *</label><input id="title" required maxlength="100" placeholder="Ví dụ: Nộp bài tập môn Toán"></div>
+ <div class="row"><div class="field"><label for="date">Ngày đến hạn *</label><input id="date" type="date" required></div><div class="field"><label for="time">Giờ (tuỳ chọn)</label><input id="time" type="time"></div></div>
+ <div class="row"><div class="field"><label for="priority">Mức ưu tiên</label><select id="priority"><option value="normal">Thông thường</option><option value="high">Cao</option><option value="medium">Vừa</option><option value="low">Thấp</option></select></div><div class="field"><label for="status">Trạng thái</label><select id="status"><option value="todo">Chưa hoàn thành</option><option value="done">Đã hoàn thành</option></select></div></div>
+ <div class="field"><label for="note">Ghi chú</label><textarea id="note" rows="2" maxlength="300" placeholder="Thông tin thêm..."></textarea></div>
+ <div class="modal-actions"><button type="button" class="btn danger" id="deleteBtn" style="display:none">Xoá</button><div class="right"><button type="button" class="btn" id="cancelBtn">Huỷ</button><button class="btn primary" type="submit">Lưu deadline</button></div></div>
+</form></div>
+<div class="toast" id="toast"></div>
+<script>
+const $=id=>document.getElementById(id);
+const monthNames=['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'];
+const today=new Date();today.setHours(0,0,0,0);
+let view=new Date(today.getFullYear(),today.getMonth(),1);
+let tasks=[];
+try{tasks=JSON.parse(localStorage.getItem('deadlineCalendarTasks')||'[]')}catch(e){tasks=[]}
+const keyDate=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const parseDate=s=>{const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const save=()=>localStorage.setItem('deadlineCalendarTasks',JSON.stringify(tasks));
+const priorityClass=p=>({high:'high',medium:'medium',low:'low',normal:''}[p]||'');
+const priorityLabel=p=>({high:'Ưu tiên cao',medium:'Ưu tiên vừa',low:'Ưu tiên thấp',normal:'Thông thường'}[p]||'Thông thường');
+function render(){
+ $('monthTitle').innerHTML=`${monthNames[view.getMonth()]} ${view.getFullYear()}<small>Quản lý lịch trình của bạn</small>`;
+ const first=new Date(view.getFullYear(),view.getMonth(),1), start=new Date(first);
+ start.setDate(first.getDate()-(first.getDay()+6)%7);
+ const grid=$('calendarGrid');grid.innerHTML='';
+ for(let i=0;i<42;i++){
+  const d=new Date(start);d.setDate(start.getDate()+i);
+  const cell=document.createElement('div');cell.className='day'+(d.getMonth()!==view.getMonth()?' outside':'')+(keyDate(d)===keyDate(today)?' today':'');
+  const dayTasks=tasks.filter(t=>t.date===keyDate(d)).sort((a,b)=>Number(a.status==='done')-Number(b.status==='done'));
+  cell.innerHTML=`<div class="num">${d.getDate()}</div>`;
+  dayTasks.slice(0,3).forEach(t=>{const b=document.createElement('button');b.className='event '+priorityClass(t.priority);b.title=t.title+(t.time?' · '+t.time:'');b.textContent=(t.status==='done'?'✓ ':'')+t.title;b.style.opacity=t.status==='done'?'.55':'1';b.addEventListener('click',e=>{e.stopPropagation();openModal(t.id)});cell.appendChild(b)});
+  if(dayTasks.length>3){const more=document.createElement('div');more.className='more';more.textContent=`+${dayTasks.length-3} công việc`;cell.appendChild(more)}
+  cell.addEventListener('dblclick',()=>openModal(null,keyDate(d)));
+  cell.title='Nhấp đúp để thêm deadline';grid.appendChild(cell);
+ }
+ renderStats();renderUpcoming();
+}
+function renderStats(){
+ const active=tasks.filter(t=>t.status!=='done');
+ $('totalCount').textContent=tasks.length;
+ $('doneCount').textContent=tasks.filter(t=>t.status==='done').length;
+ $('soonCount').textContent=active.filter(t=>{const n=(parseDate(t.date)-today)/86400000;return n>=0&&n<=7}).length;
+ $('lateCount').textContent=active.filter(t=>parseDate(t.date)<today).length;
+}
+function renderUpcoming(){
+ const list=$('upcoming');list.innerHTML='';
+ const next=tasks.filter(t=>t.status!=='done').sort((a,b)=>a.date.localeCompare(b.date)||(a.time||'').localeCompare(b.time||'')).slice(0,5);
+ if(!next.length){list.innerHTML='<p class="empty">Chưa có deadline sắp tới. Hãy thêm công việc đầu tiên của bạn nhé!</p>';return}
+ next.forEach(t=>{const d=parseDate(t.date),item=document.createElement('div');item.className='item';item.innerHTML=`<div class="date-chip"><b>${d.getDate()}</b><small>${['T1','T2','T3','T4','T5','T6','T7','T8','T9','T10','T11','T12'][d.getMonth()]}</small></div><div class="item-text"><strong>${esc(t.title)}</strong><span>${d.toLocaleDateString('vi-VN',{weekday:'short',day:'numeric',month:'short'})}${t.time?' · '+esc(t.time):''} · ${priorityLabel(t.priority)}</span></div>`;item.addEventListener('click',()=>openModal(t.id));item.style.cursor='pointer';list.appendChild(item)});
+}
+function openModal(id=null,date=keyDate(today)){
+ $('deadlineForm').reset();$('editId').value='';$('deleteBtn').style.display='none';$('modalTitle').textContent=id?'Sửa deadline':'Thêm deadline';
+ if(id){const t=tasks.find(x=>x.id===id);if(!t)return;$('editId').value=t.id;$('title').value=t.title;$('date').value=t.date;$('time').value=t.time||'';$('priority').value=t.priority||'normal';$('status').value=t.status||'todo';$('note').value=t.note||'';$('deleteBtn').style.display='inline-block'}
+ else{$('date').value=date;$('priority').value='normal';$('status').value='todo'}
+ $('backdrop').classList.add('show');$('title').focus();
+}
+function closeModal(){$('backdrop').classList.remove('show')}
+function toast(msg){const t=$('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2200)}
+$('addBtn').onclick=()=>openModal();$('todayBtn').onclick=()=>{view=new Date(today.getFullYear(),today.getMonth(),1);render()};
+$('prevBtn').onclick=()=>{view.setMonth(view.getMonth()-1);render()};$('nextBtn').onclick=()=>{view.setMonth(view.getMonth()+1);render()};
+$('cancelBtn').onclick=closeModal;$('backdrop').addEventListener('click',e=>{if(e.target===$('backdrop'))closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+$('deadlineForm').addEventListener('submit',e=>{e.preventDefault();const id=$('editId').value;const t={id:id||String(Date.now()),title:$('title').value.trim(),date:$('date').value,time:$('time').value,priority:$('priority').value,status:$('status').value,note:$('note').value.trim()};if(!t.title||!t.date)return;if(id){tasks=tasks.map(x=>x.id===id?t:x)}else tasks.push(t);save();view=new Date(parseDate(t.date).getFullYear(),parseDate(t.date).getMonth(),1);render();closeModal();toast(id?'Đã cập nhật deadline':'Đã thêm deadline')});
+$('deleteBtn').onclick=()=>{const id=$('editId').value;if(id&&confirm('Bạn có chắc muốn xoá deadline này?')){tasks=tasks.filter(t=>t.id!==id);save();render();closeModal();toast('Đã xoá deadline')}};
+render();
+</script>
+</body>
+</html>
